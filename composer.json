@@ -1,0 +1,27 @@
+{
+    "name": "imponeer/smarty-includeq",
+    "description": "Rewritten smarty 'include' variant that was invented for use in XOOPS, but nowadays is used in some other PHP based CMS'es",
+    "type": "library",
+    "require": {
+        "php": ">=7.1",
+        "imponeer/smarty-extensions-contracts": "^1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raimondas Rimkevičius",
+            "email": "github@mekdrop.name"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Imponeer\\Smarty\\Extensions\\IncludeQ\\": "src/"
+        }
+    },
+    "keywords": [
+        "smarty",
+        "xoops",
+        "include",
+        "smarty-plugins"
+    ]
+}
