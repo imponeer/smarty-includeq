@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/github/license/imponeer/smarty-includeq.svg)](LICENSE)
-[![GitHub release](https://img.shields.io/github/release/imponeer/smarty-includeq.svg)](https://github.com/imponeer/smarty-includeq/releases) [![Maintainability](https://api.codeclimate.com/v1/badges/05e38f936681d6b4c462/maintainability)](https://codeclimate.com/github/imponeer/smarty-includeq/maintainability) [![PHP](https://img.shields.io/packagist/php-v/imponeer/smarty-includeq.svg)](http://php.net) 
+[![GitHub release](https://img.shields.io/github/release/imponeer/smarty-includeq.svg)](https://github.com/imponeer/smarty-includeq/releases) [![Maintainability](https://api.codeclimate.com/v1/badges/a231cf43fba22907f5a3/maintainability)](https://codeclimate.com/github/imponeer/smarty-includeq/maintainability) [![PHP](https://img.shields.io/packagist/php-v/imponeer/smarty-includeq.svg)](http://php.net) 
 [![Packagist](https://img.shields.io/packagist/dm/imponeer/smarty-includeq.svg)](https://packagist.org/packages/imponeer/smarty-includeq)
 
 # Smarty IncludeQ
