@@ -16,8 +16,10 @@ class IncludeQCompiler implements SmartyCompilerInterface
 
     /**
      * @inheritDoc
+     *
+     * @throws SmartyCompilerException
      */
-    public function execute($args, Smarty_Internal_SmartyTemplateCompiler &$compiler)
+    public function execute($args, Smarty_Internal_SmartyTemplateCompiler $compiler)
     {
         $this->validateArguments($args, $compiler);
 

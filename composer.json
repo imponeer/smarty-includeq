@@ -3,8 +3,8 @@
     "description": "Rewritten smarty 'include' variant that was invented for use in XOOPS, but nowadays is used in some other PHP based CMS'es",
     "type": "library",
     "require": {
-        "php": ">=7.1",
-        "imponeer/smarty-extensions-contracts": "^1.0 || ^2.0"
+        "php": "^7.3 || ^8.0",
+        "imponeer/smarty-extensions-contracts": "^3.0"
     },
     "license": "MIT",
     "authors": [
@@ -23,5 +23,11 @@
         "xoops",
         "include",
         "smarty-plugins"
-    ]
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^8.0"
+    },
+    "scripts": {
+        "test": "phpunit --testdox"
+    }
 }
