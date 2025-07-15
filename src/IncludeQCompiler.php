@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Imponeer\Smarty\Extensions\IncludeQ;
 
@@ -53,7 +54,7 @@ class IncludeQCompiler implements SmartyCompilerInterface
      *
      * @throws SmartyCompilerException
      */
-    protected function validateArguments(array $args, Smarty_Internal_SmartyTemplateCompiler $compiler)
+    protected function validateArguments(array $args, Smarty_Internal_SmartyTemplateCompiler $compiler): void
     {
         if (!isset($args['file'])) {
             $compiler->trigger_template_error(
