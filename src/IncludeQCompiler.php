@@ -17,23 +17,23 @@ class IncludeQCompiler extends Base
     /**
      * Required attributes for the tag
      *
-     * @var array
+     * @var string[]
      */
     protected $required_attributes = ['file'];
 
     /**
      * Optional attributes for the tag
      *
-     * @var array
+     * @var string[]
      */
     protected $optional_attributes = ['assign', '_any'];
 
     /**
      * Compiles code for the {includeq} tag
      *
-     * @param array $args array with attributes from parser
+     * @param list<array<string, mixed>> $args array with attributes from parser
      * @param Template $compiler compiler object
-     * @param array $parameter array with compilation parameter
+     * @param mixed[] $parameter array with compilation parameter
      * @param string|null $tag tag name
      * @param string|null $function function name
      *
@@ -43,6 +43,9 @@ class IncludeQCompiler extends Base
      */
     public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null): string
     {
+        /**
+         * @var array<string, mixed> $_attr
+         */
         $_attr = $this->getAttributes($compiler, $args);
 
         $ret = '';
@@ -77,7 +80,7 @@ class IncludeQCompiler extends Base
     /**
      * Renders other arguments as string
      *
-     * @param array $args All supplied tag arguments
+     * @param array<string, mixed> $args All supplied tag arguments
      *
      * @return string
      */
@@ -99,9 +102,9 @@ class IncludeQCompiler extends Base
     /**
      * Gets arguments that doesn't have any specific logic for usability
      *
-     * @param array $args Supplied for tag arguments
+     * @param array<string, mixed> $args Supplied for tag arguments
      *
-     * @return array
+     * @return array<string, mixed>
      */
     private function getOtherArguments(array $args): array
     {

@@ -20,8 +20,6 @@ class IncludeQExtensionTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->plugin = new IncludeQCompiler();
-
         $this->smarty = new Smarty();
         $this->smarty->setCaching(Smarty::CACHING_OFF);
         $this->smarty->addExtension(
