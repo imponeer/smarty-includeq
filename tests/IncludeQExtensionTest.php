@@ -5,38 +5,36 @@ declare(strict_types=1);
 namespace Imponeer\Smarty\Extensions\IncludeQ\Tests;
 
 use Imponeer\Smarty\Extensions\IncludeQ\IncludeQCompiler;
+use Imponeer\Smarty\Extensions\IncludeQ\IncludeQExtension;
 use PHPUnit\Framework\TestCase;
-use Smarty;
+use Smarty\Exception;
+use Smarty\Smarty;
 
-class IncludeQCompilerTest extends TestCase
+class IncludeQExtensionTest extends TestCase
 {
     private Smarty $smarty;
-    private IncludeQCompiler $plugin;
 
+    /**
+     * @noinspection MethodShouldBeFinalInspection
+     * @noinspection MethodVisibilityInspection
+     */
     protected function setUp(): void
     {
         $this->plugin = new IncludeQCompiler();
 
         $this->smarty = new Smarty();
-        $this->smarty->caching = Smarty::CACHING_OFF;
-        $this->smarty->registerPlugin(
-            'compiler',
-            $this->plugin->getName(),
-            [$this->plugin, 'execute']
+        $this->smarty->setCaching(Smarty::CACHING_OFF);
+        $this->smarty->addExtension(
+            new IncludeQExtension()
         );
 
         parent::setUp();
     }
 
-    public function testGetName(): void
-    {
-        $this->assertSame(
-            'includeq',
-            $this->plugin->getName()
-        );
-    }
-
-    public function testInvoking(): void
+    /**
+     * @throws Exception
+     */
+    final public function testIncludeQ(): void
     {
         $src = urlencode(
             sprintf(
