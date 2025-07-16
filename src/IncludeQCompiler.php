@@ -4,97 +4,75 @@ declare(strict_types=1);
 
 namespace Imponeer\Smarty\Extensions\IncludeQ;
 
-use Imponeer\Contracts\Smarty\Extension\SmartyCompilerInterface;
-use Smarty_Internal_SmartyTemplateCompiler;
-use SmartyCompilerException;
+use Smarty\Compile\Base;
+use Smarty\Compiler\Template;
 
 /**
- * Defines {includeq} smarty tag
+ * Defines {includeq} smarty tag compiler
  *
  * @package Imponeer\Smarty\Extensions\IncludeQ
  */
-class IncludeQCompiler implements SmartyCompilerInterface
+class IncludeQCompiler extends Base
 {
     /**
-     * @inheritDoc
+     * Required attributes for the tag
      *
-     * @throws SmartyCompilerException
+     * @var array
      */
-    public function execute($args, Smarty_Internal_SmartyTemplateCompiler $compiler)
+    protected $required_attributes = ['file'];
+
+    /**
+     * Optional attributes for the tag
+     *
+     * @var array
+     */
+    protected $optional_attributes = ['assign', '_any'];
+
+    /**
+     * Compiles code for the {includeq} tag
+     *
+     * @param array $args array with attributes from parser
+     * @param Template $compiler compiler object
+     * @param array $parameter array with compilation parameter
+     * @param string|null $tag tag name
+     * @param string|null $function function name
+     *
+     * @return string compiled code as a string
+     *
+     * @noinspection MethodShouldBeFinalInspection
+     */
+    public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null): string
     {
-        $this->validateArguments($args, $compiler);
+        $_attr = $this->getAttributes($compiler, $args);
 
         $ret = '';
 
-        if (isset($args['assign'])) {
+        if (isset($_attr['assign'])) {
             $ret .= "ob_start();\n";
         }
 
         $ret .= sprintf(
-            '$_smarty_tpl->_subTemplateRender(%s, %s, %s, 0, %s, %s, 0, true);',
-            $args['file'],
+            '$_smarty_tpl->renderSubTemplate(%s, %s, %s, %d, %s, %s, %d, true);',
+            $_attr['file'],
             '$_smarty_tpl->cache_id',
             '$_smarty_tpl->compile_id',
+            0,
             '$_smarty_tpl->cache_lifetime',
-            $this->renderOtherArgs($args)
+            $this->renderOtherArgs($_attr),
+            0
         );
 
-        if (isset($args['assign'])) {
+        if (isset($_attr['assign'])) {
             $ret .= sprintf(
                 '$_smarty_tpl->assign(%s, ob_get_contents()); ob_end_clean();',
-                $args['assign']
+                $_attr['assign']
             );
         }
 
         return '<?php ' . $ret . ' ?>';
     }
 
-    /**
-     * Validates tag arguments
-     *
-     * @param array $args Arguments supplied for tag
-     * @param Smarty_Internal_SmartyTemplateCompiler $compiler Current smarty compiler instance
-     *
-     * @throws SmartyCompilerException
-     */
-    protected function validateArguments(array $args, Smarty_Internal_SmartyTemplateCompiler $compiler): void
-    {
-        if (!isset($args['file'])) {
-            $compiler->trigger_template_error(
-                'includeq must have "file" attribute',
-                null,
-                true
-            );
-        }
 
-        if (empty($args['file'])) {
-            $compiler->trigger_template_error(
-                'includeq must have non empty "file" attribute',
-                null,
-                true
-            );
-        }
-
-        if (isset($args['assign']) && !$this->isVariableName($args['assign'])) {
-            $compiler->trigger_template_error(
-                'includeq "assign" attribute must be variable name',
-                null,
-                true
-            );
-        }
-    }
-
-    /**
-     * Checks if argument can be variable name
-     *
-     * @param string $arg Argument name
-     *
-     * @return bool
-     */
-    private function isVariableName(string $arg): bool
-    {
-        return (bool)preg_match('/^\w+$/', $arg);
-    }
 
     /**
      * Renders other arguments as string
@@ -103,7 +81,7 @@ class IncludeQCompiler implements SmartyCompilerInterface
      *
      * @return string
      */
-    protected function renderOtherArgs(array $args): string
+    private function renderOtherArgs(array $args): string
     {
         $ret = '[';
 
@@ -125,7 +103,7 @@ class IncludeQCompiler implements SmartyCompilerInterface
      *
      * @return array
      */
-    protected function getOtherArguments(array $args): array
+    private function getOtherArguments(array $args): array
     {
         $ret = array_merge($args);
 
@@ -136,13 +114,5 @@ class IncludeQCompiler implements SmartyCompilerInterface
         }
 
         return $ret;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getName(): string
-    {
-        return 'includeq';
     }
 }
