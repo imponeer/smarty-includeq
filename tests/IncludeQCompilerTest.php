@@ -1,12 +1,15 @@
 <?php
+
 declare(strict_types=1);
+
+namespace Imponeer\Smarty\Extensions\IncludeQ\Tests;
 
 use Imponeer\Smarty\Extensions\IncludeQ\IncludeQCompiler;
 use PHPUnit\Framework\TestCase;
+use Smarty;
 
 class IncludeQCompilerTest extends TestCase
 {
-
     private Smarty $smarty;
     private IncludeQCompiler $plugin;
 
@@ -41,9 +44,8 @@ class IncludeQCompilerTest extends TestCase
                 'eval:test'
             )
         );
-        $ret = $this->smarty->fetch('eval:urlencode:'.$src);
+        $ret = $this->smarty->fetch('eval:urlencode:' . $src);
 
         $this->assertSame('test', $ret);
     }
-
 }

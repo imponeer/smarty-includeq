@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Imponeer\Smarty\Extensions\IncludeQ;
@@ -14,7 +15,6 @@ use SmartyCompilerException;
  */
 class IncludeQCompiler implements SmartyCompilerInterface
 {
-
     /**
      * @inheritDoc
      *
@@ -31,8 +31,11 @@ class IncludeQCompiler implements SmartyCompilerInterface
         }
 
         $ret .= sprintf(
-            '$_smarty_tpl->_subTemplateRender(%s, $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, %s, 0, true);',
+            '$_smarty_tpl->_subTemplateRender(%s, %s, %s, 0, %s, %s, 0, true);',
             $args['file'],
+            '$_smarty_tpl->cache_id',
+            '$_smarty_tpl->compile_id',
+            '$_smarty_tpl->cache_lifetime',
             $this->renderOtherArgs($args)
         );
 
