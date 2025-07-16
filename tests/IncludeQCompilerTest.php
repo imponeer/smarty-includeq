@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Imponeer\Smarty\Extensions\IncludeQ\IncludeQCompiler;
 use PHPUnit\Framework\TestCase;
@@ -6,10 +7,7 @@ use PHPUnit\Framework\TestCase;
 class IncludeQCompilerTest extends TestCase
 {
 
-    /**
-     * @var Smarty
-     */
-    private $smarty;
+    private Smarty $smarty;
 
     protected function setUp(): void
     {
@@ -26,14 +24,16 @@ class IncludeQCompilerTest extends TestCase
         parent::setUp();
     }
 
-    public function testGetName() {
+    public function testGetName(): void
+    {
         $this->assertSame(
             'includeq',
             $this->plugin->getName()
         );
     }
 
-    public function testInvoking() {
+    public function testInvoking(): void
+    {
         $src = urlencode(
             sprintf(
                 "{includeq file=\"%s\"}",

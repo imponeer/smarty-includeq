@@ -3,7 +3,7 @@
     "description": "Rewritten smarty 'include' variant that was invented for use in XOOPS, but nowadays is used in some other PHP based CMS'es",
     "type": "library",
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^8.3",
         "imponeer/smarty-extensions-contracts": "^3.0"
     },
     "license": "MIT",
@@ -16,6 +16,11 @@
     "autoload": {
         "psr-4": {
             "Imponeer\\Smarty\\Extensions\\IncludeQ\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Imponeer\\Smarty\\Extensions\\IncludeQ\\Tests\\": "tests/"
         }
     },
     "keywords": [
