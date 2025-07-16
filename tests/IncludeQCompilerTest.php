@@ -8,6 +8,7 @@ class IncludeQCompilerTest extends TestCase
 {
 
     private Smarty $smarty;
+    private IncludeQCompiler $plugin;
 
     protected function setUp(): void
     {
