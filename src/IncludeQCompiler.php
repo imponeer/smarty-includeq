@@ -29,6 +29,38 @@ class IncludeQCompiler extends Base
     protected $optional_attributes = ['assign', '_any'];
 
     /**
+     * Override getAttributes to allow any additional attributes
+     *
+     * @param mixed $compiler
+     * @param mixed $attributes
+     * @return array<string, mixed>
+     *
+     * @noinspection MethodShouldBeFinalInspection
+     * @noinspection MethodVisibilityInspection
+     */
+    protected function getAttributes($compiler, $attributes): array
+    {
+        $resultAttr = [];
+
+        if (is_array($attributes)) {
+            foreach ($attributes as $arg) {
+                if (is_array($arg)) {
+                    /** @noinspection SlowArrayOperationsInLoopInspection */
+                    $resultAttr = array_merge($resultAttr, $arg);
+                }
+            }
+        }
+
+        foreach ($this->required_attributes as $attr) {
+            if (!isset($resultAttr[$attr])) {
+                $compiler->trigger_template_error("missing '{$attr}' attribute");
+            }
+        }
+
+        return $resultAttr;
+    }
+
+    /**
      * Compiles code for the {includeq} tag
      *
      * @param list<array<string, mixed>> $args array with attributes from parser
@@ -43,9 +75,6 @@ class IncludeQCompiler extends Base
      */
     public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null): string
     {
-        /**
-         * @var array<string, mixed> $_attr
-         */
         $_attr = $this->getAttributes($compiler, $args);
 
         $ret = '';
